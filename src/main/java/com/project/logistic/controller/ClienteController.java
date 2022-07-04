@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -29,14 +30,15 @@ public class ClienteController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build()); // retorna o cliente se existir, senão retorna 404
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // indica que o método retorna um status 201
-    public Cliente adicionar(@RequestBody Cliente cliente) {
+    public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
         return clienteRepository.save(cliente); // adiciona e salva cliente e retorna 201
     }
 
     @PutMapping("/{clienteId}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable Long clienteId, @RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> atualizar(@Valid @PathVariable Long clienteId, @RequestBody Cliente cliente) {
         if (!clienteRepository.existsById(clienteId)) {
             return ResponseEntity.notFound().build(); // retorna 404 se o cliente não existir
         }

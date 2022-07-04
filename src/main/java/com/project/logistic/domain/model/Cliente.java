@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -17,8 +20,17 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //estratégia de geração de chave primária
     private Long id;
 
+    @NotBlank // indica que o atributo é obrigatório
+    @Size(max = 60) // indica que o atributo deve ter um tamanho máximo de 60 caracteres
     private String nome;
+
+    @NotBlank // indica que o atributo é obrigatório
+    @Email // indica que o atributo deve ser um email válido
+    @Size(max = 255) // indica que o atributo deve ter um tamanho máximo de 255 caracteres
     private String email;
+
+    @NotBlank // indica que o atributo é obrigatório
+    @Size(max = 20) // indica que o atributo deve ter um tamanho máximo de 20 caracteres
     private String telefone;
 
 }

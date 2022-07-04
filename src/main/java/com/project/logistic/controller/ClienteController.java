@@ -1,5 +1,7 @@
 package com.project.logistic.controller;
 
+import com.project.logistic.domain.domain.service.SalvaClienteService;
+import com.project.logistic.domain.domain.service.RemoveClienteService;
 import com.project.logistic.domain.model.Cliente;
 import com.project.logistic.domain.repository.ClienteRepository;
 
@@ -18,6 +20,8 @@ import java.util.List;
 public class ClienteController {
 
     private ClienteRepository clienteRepository; // indica que a classe é um repositório de clientes
+    private SalvaClienteService salvaClienteService; // indica que a classe é um serviço de cadastro de clientes
+    private RemoveClienteService removeClienteService; // indica que a classe é um serviço de remoção de clientes
 
     @GetMapping
     public List<Cliente> listar(){
@@ -34,7 +38,7 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // indica que o método retorna um status 201
     public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-        return clienteRepository.save(cliente); // adiciona e salva cliente e retorna 201
+        return salvaClienteService.salvar(cliente); // adiciona e salva cliente e retorna 201
     }
 
     @PutMapping("/{clienteId}")
@@ -44,7 +48,7 @@ public class ClienteController {
         }
 
         cliente.setId(clienteId); // atualiza o id do cliente
-        cliente = clienteRepository.save(cliente); // salva o cliente
+        cliente = salvaClienteService.salvar(cliente); // salva o cliente
         return ResponseEntity.ok(cliente); // retorna o cliente atualizado
 
     }
@@ -55,7 +59,7 @@ public class ClienteController {
             return ResponseEntity.notFound().build(); // retorna 404 se o cliente não existir
         }
 
-        clienteRepository.deleteById(clienteId); // remove o cliente
+        removeClienteService.remover(clienteId); // remove o cliente
         return ResponseEntity.noContent().build(); // retorna 204
     }
 

@@ -1,6 +1,7 @@
 package com.project.logistic.api.exceptionhandler;
 
 
+import com.project.logistic.domain.exception.LogisticExceptions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -36,5 +38,17 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         problema.setCampos(campos); // seta os campos inválidos
 
         return handleExceptionInternal(ex, problema ,headers,status,request);
+    }
+    @ExceptionHandler(LogisticExceptions.class) // indica que a classe trata exceções de LogisticExceptions
+    public ResponseEntity<Object> handleLogisticExceptions(LogisticExceptions ex, WebRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        Problema problema = new Problema(); // cria um novo objeto Problema
+        problema.setStatus(status.value()); // seta o status da exceção
+        problema.setDataHora(LocalDateTime.now()); // seta a data e hora da exceção
+        problema.setTitulo(ex.getMessage()); // seta o título da exceção
+
+        return handleExceptionInternal(ex,problema, new HttpHeaders(), status, request);
+        // retorna o problema como resposta da requisição
     }
 }

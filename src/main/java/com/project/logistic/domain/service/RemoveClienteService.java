@@ -1,4 +1,4 @@
-package com.project.logistic.domain.domain.service;
+package com.project.logistic.domain.service;
 
 import com.project.logistic.domain.model.Cliente;
 import com.project.logistic.domain.repository.ClienteRepository;

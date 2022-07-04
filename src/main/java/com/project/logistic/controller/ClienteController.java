@@ -1,7 +1,7 @@
 package com.project.logistic.controller;
 
-import com.project.logistic.domain.domain.service.SalvaClienteService;
-import com.project.logistic.domain.domain.service.RemoveClienteService;
+import com.project.logistic.domain.service.SalvaClienteService;
+import com.project.logistic.domain.service.RemoveClienteService;
 import com.project.logistic.domain.model.Cliente;
 import com.project.logistic.domain.repository.ClienteRepository;
 

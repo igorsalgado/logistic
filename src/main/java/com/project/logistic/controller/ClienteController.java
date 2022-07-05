@@ -1,7 +1,6 @@
 package com.project.logistic.controller;
 
-import com.project.logistic.domain.service.SalvaClienteService;
-import com.project.logistic.domain.service.RemoveClienteService;
+import com.project.logistic.domain.service.ClienteService;
 import com.project.logistic.domain.model.Cliente;
 import com.project.logistic.domain.repository.ClienteRepository;
 
@@ -20,8 +19,7 @@ import java.util.List;
 public class ClienteController {
 
     private ClienteRepository clienteRepository; // indica que a classe é um repositório de clientes
-    private SalvaClienteService salvaClienteService; // indica que a classe é um serviço de cadastro de clientes
-    private RemoveClienteService removeClienteService; // indica que a classe é um serviço de remoção de clientes
+    private ClienteService clienteService; // indica que a classe é um serviço de clientes
 
     @GetMapping
     public List<Cliente> listar(){
@@ -38,7 +36,7 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED) // indica que o método retorna um status 201
     public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-        return salvaClienteService.salvar(cliente); // adiciona e salva cliente e retorna 201
+        return clienteService.salvar(cliente); // adiciona e salva cliente e retorna 201
     }
 
     @PutMapping("/{clienteId}")
@@ -48,7 +46,7 @@ public class ClienteController {
         }
 
         cliente.setId(clienteId); // atualiza o id do cliente
-        cliente = salvaClienteService.salvar(cliente); // salva o cliente
+        cliente = clienteService.salvar(cliente); // salva o cliente
         return ResponseEntity.ok(cliente); // retorna o cliente atualizado
 
     }
@@ -59,7 +57,7 @@ public class ClienteController {
             return ResponseEntity.notFound().build(); // retorna 404 se o cliente não existir
         }
 
-        removeClienteService.remover(clienteId); // remove o cliente
+        clienteService.remover(clienteId); // remove o cliente
         return ResponseEntity.noContent().build(); // retorna 204
     }
 

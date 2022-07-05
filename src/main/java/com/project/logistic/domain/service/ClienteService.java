@@ -9,9 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 @AllArgsConstructor
 @Service
-public class SalvaClienteService { // indica que a classe é um serviço de cadastro de clientes
+public class ClienteService { // indica que a classe é um serviço de cadastro de clientes
 
     private ClienteRepository clienteRepository;
+
+    // verifica se o cliente existe
+    public Cliente buscar(Long clienteId) {
+        return clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new LogisticExceptions("Cliente não encontrado"));
+    }
 
     @Transactional // indica que o método é transacionado
     public Cliente salvar(Cliente cliente) {
@@ -27,4 +33,9 @@ public class SalvaClienteService { // indica que a classe é um serviço de cada
 
         return clienteRepository.save(cliente);
     } // salva o cliente e retorna o cliente salvo
+
+    @Transactional
+    public void remover(Long ClienteId) {
+        clienteRepository.deleteById(ClienteId);
+    } // remove o cliente
 }

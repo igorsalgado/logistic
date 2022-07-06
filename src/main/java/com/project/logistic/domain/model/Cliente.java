@@ -1,5 +1,6 @@
 package com.project.logistic.domain.model;
 
+import com.project.logistic.domain.utils.ValidationGroups;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -15,6 +17,7 @@ import javax.validation.constraints.Size;
 @Entity // indica que a classe é uma entidade
 public class Cliente {
 
+    @NotNull(groups = ValidationGroups.ClienteId.class)
     @EqualsAndHashCode.Include // indica que o atributo deve ser incluído no cálculo de hashCode
     @Id // indica que o atributo é o id da entidade
     @GeneratedValue(strategy = GenerationType.IDENTITY) //estratégia de geração de chave primária

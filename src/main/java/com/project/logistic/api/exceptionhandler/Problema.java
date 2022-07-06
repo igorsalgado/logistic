@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_NULL) // indica que os atributos nulos não devem ser serializados
 public class Problema {
     private Integer status;
     private OffsetDateTime dataHora;

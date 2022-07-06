@@ -31,6 +31,8 @@ public class Entrega {
     @NotNull // indica que o atributo é obrigatório
     private Cliente cliente;
 
+    @Valid
+    @NotNull
     @Embedded // indica que o atributo é um objeto embutido
     private Destinatario destinatario;
 

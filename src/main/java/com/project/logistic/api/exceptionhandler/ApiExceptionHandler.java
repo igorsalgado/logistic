@@ -14,6 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         Problema problema = new Problema(); // cria um novo objeto Problema
         problema.setStatus(status.value()); // seta o status da exceção
-        problema.setDataHora(LocalDateTime.now()); // seta a data e hora da exceção
+        problema.setDataHora(OffsetDateTime.now()); // seta a data e hora da exceção
         problema.setTitulo("Um ou mais campos inválidos no corpo da requisição"); // seta o título da exceção
         problema.setCampos(campos); // seta os campos inválidos
 
@@ -45,7 +46,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         Problema problema = new Problema(); // cria um novo objeto Problema
         problema.setStatus(status.value()); // seta o status da exceção
-        problema.setDataHora(LocalDateTime.now()); // seta a data e hora da exceção
+        problema.setDataHora(OffsetDateTime.now()); // seta a data e hora da exceção
         problema.setTitulo(ex.getMessage()); // seta o título da exceção
 
         return handleExceptionInternal(ex,problema, new HttpHeaders(), status, request);

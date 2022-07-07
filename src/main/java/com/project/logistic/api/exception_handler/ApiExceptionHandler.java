@@ -1,4 +1,4 @@
-package com.project.logistic.api.exceptionhandler;
+package com.project.logistic.api.exception_handler;
 
 
 import com.project.logistic.domain.exception.LogisticExceptions;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;

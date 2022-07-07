@@ -1,4 +1,4 @@
-package com.project.logistic.controller;
+package com.project.logistic.api.controller;
 
 import com.project.logistic.domain.service.ClienteService;
 import com.project.logistic.domain.model.Cliente;

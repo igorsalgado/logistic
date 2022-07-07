@@ -1,11 +1,10 @@
-package com.project.logistic.api.exceptionhandler;
+package com.project.logistic.api.exception_handler;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 

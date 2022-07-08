@@ -12,8 +12,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,6 +41,9 @@ public class Entrega {
     @NotNull
     private BigDecimal taxa;
 
+    @OneToMany(mappedBy = "entrega", cascade = CascadeType.ALL) // indica que o atributo é um relacionamento de um para muitos
+    private List<Ocorrencia> ocorrencia = new ArrayList<>();
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY) // indica que o atributo é um atributo somente leitura
     @Enumerated(EnumType.STRING) // indica que o atributo é um enum de string
     private StatusEntrega status;
@@ -50,4 +54,15 @@ public class Entrega {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private OffsetDateTime dataEntrega;
 
+    public Ocorrencia registrarOcorrencia(String descricao) {
+        Ocorrencia ocorrencia = new Ocorrencia();
+        ocorrencia.setDescricao(descricao);
+        ocorrencia.setDataRegistro(OffsetDateTime.now());
+        ocorrencia.setEntrega(this);
+
+        this.getOcorrencia().add(ocorrencia);
+
+        return ocorrencia;
+
+    }
 }

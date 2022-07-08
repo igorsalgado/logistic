@@ -1,6 +1,7 @@
 package com.project.logistic.api.exception_handler;
 
 
+import com.project.logistic.domain.exception.EntidadeNaoEncontradaException;
 import com.project.logistic.domain.exception.LogisticExceptions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         problema.setCampos(campos); // seta os campos inválidos
 
         return handleExceptionInternal(ex, problema ,headers,status,request);
+    }
+    @ExceptionHandler(EntidadeNaoEncontradaException.class) // indica que a classe trata exceções de LogisticExceptions
+    public ResponseEntity<Object> handleEntidadeNaoEncontrada(EntidadeNaoEncontradaException ex, WebRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND; // seta o status da exceção
+
+        Problema problema = new Problema(); // cria um novo objeto Problema
+        problema.setStatus(status.value()); // seta o status da exceção
+        problema.setDataHora(OffsetDateTime.now()); // seta a data e hora da exceção
+        problema.setTitulo(ex.getMessage()); // seta o título da exceção
+
+        return handleExceptionInternal(ex,problema, new HttpHeaders(), status, request);
+        // retorna o problema como resposta da requisição
     }
     @ExceptionHandler(LogisticExceptions.class) // indica que a classe trata exceções de LogisticExceptions
     public ResponseEntity<Object> handleLogisticExceptions(LogisticExceptions ex, WebRequest request) {

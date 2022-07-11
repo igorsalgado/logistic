@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.security.auth.login.LoginException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
@@ -64,5 +65,13 @@ public class Entrega {
 
         return ocorrencia;
 
+    }
+    public void finalizar() throws LoginException {
+        if (!StatusEntrega.PENDENTE.equals(this.getStatus())) { // verifica se o status da entrega é diferente de PENDENTE
+            throw new LoginException("A entrega ainda não foi finalizada");
+        }
+
+        setStatus(StatusEntrega.FINALIZADA); // seta o status da entrega como FINALIZADA
+        setDataEntrega(OffsetDateTime.now()); // seta a data de entrega com a data atual
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.LoginException;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -43,5 +44,11 @@ public class EntregaController {
         return entregaRepository.findById(entregaId) // busca a entrega pelo id
                 .map(entrega -> ResponseEntity.ok(entregaMapper.toDTO(entrega))) // retorna a entrega encontrada
                 .orElse(ResponseEntity.notFound().build()); // retorna 404 se não encontrar
+    }
+
+    @PutMapping("/{entregaId}/finalizacao")
+    @ResponseStatus(HttpStatus.NO_CONTENT) // indica que a resposta será nula, retornando o status 204
+    public void finalizar(@PathVariable Long entregaId) throws LoginException {
+        entregaService.finalizarEntrega(entregaId); // finaliza a entrega
     }
 }

@@ -1,7 +1,8 @@
 package com.project.logistic.domain.model;
 
 public enum StatusEntrega {
-    AGUARDANDO,
-    ENTREGUE,
+    PENDENTE,
+    FINALIZADA,
+
     CANCELADO
 }

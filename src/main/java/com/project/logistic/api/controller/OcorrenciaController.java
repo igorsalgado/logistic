@@ -5,7 +5,7 @@ import com.project.logistic.api.dto.request.OcorrenciaRequest;
 import com.project.logistic.api.mapper.OcorrenciaMapper;
 import com.project.logistic.domain.model.Entrega;
 import com.project.logistic.domain.model.Ocorrencia;
-import com.project.logistic.domain.service.BuscaEntregaService;
+import com.project.logistic.domain.service.EntregaService;
 import com.project.logistic.domain.service.OcorrenciaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class OcorrenciaController {
 
     private OcorrenciaService ocorrenciaService; // indica que a classe é um serviço de ocorrências
     private OcorrenciaMapper ocorrenciaMapper; // indica que a classe é um mapeador de ocorrências
-    private BuscaEntregaService buscaEntregaService; // indica que a classe é um serviço de busca de entregas
+    private EntregaService buscaEntregaService; // indica que a classe é um serviço de busca de entregas
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -36,6 +36,6 @@ public class OcorrenciaController {
     @GetMapping
     public List<OcorrenciaDTO> listar(@PathVariable Long entregaId) {
         Entrega entrega = buscaEntregaService.buscarEntrega(entregaId);
-        return ocorrenciaMapper.toDTO(entrega.getOcorrencia()); // retorna lista de ocorrências
+        return ocorrenciaMapper.toDTO(entrega.getOcorrencia());
     }
 }
